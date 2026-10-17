@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NagarSathi — Report Road Damage | Citizen Grievance Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Leaflet CSS & JS for mini picker map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body id="reportDamagePage">
+  <div class="app-container">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="brand-link">
+          <div class="brand-logo-icon">
+            <i data-lucide="activity"></i>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">NagarSathi <span class="brand-tag">AI</span></span>
+            <span class="brand-tagline">Together for Better Roads.</span>
+          </div>
+        </a>
+        <button id="sidebarCloseBtn" class="sidebar-close-btn" aria-label="Close Sidebar"><i data-lucide="x"></i></button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Navigation</div>
+        <a href="index.html" class="nav-item">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Overview</span>
+        </a>
+        <a href="report.html" class="nav-item active">
+          <i data-lucide="plus-circle"></i>
+          <span>Report Road Damage</span>
+        </a>
+        <a href="map.html" class="nav-item">
+          <i data-lucide="map"></i>
+          <span>Live Issue Map</span>
+        </a>
+        <a href="repairs.html" class="nav-item">
+          <i data-lucide="wrench"></i>
+          <span>Repair Management</span>
+        </a>
+
+        <div class="nav-section-title">Intelligence & Planning</div>
+        <a href="insights.html" class="nav-item">
+          <i data-lucide="sparkles"></i>
+          <span>AI Insights</span>
+        </a>
+        <a href="budget.html" class="nav-item">
+          <i data-lucide="calculator"></i>
+          <span>Budget Planner</span>
+        </a>
+
+        <div class="nav-section-title">Public & Governance</div>
+        <a href="transparency.html" class="nav-item">
+          <i data-lucide="shield-check"></i>
+          <span>Public Transparency</span>
+        </a>
+        <a href="about.html" class="nav-item">
+          <i data-lucide="info"></i>
+          <span>About NagarSathi</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-zone-card">
+          <div class="sidebar-zone-title">
+            <i data-lucide="building-2"></i> Ghaziabad Zone 3
+          </div>
+          <div class="sidebar-zone-sub">Citizen Portal Active</div>
+          <button id="resetDemoBtn" class="sidebar-reset-btn">
+            <i data-lucide="refresh-cw"></i> Reset Demo Database
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+      <!-- Top Navbar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Toggle Menu">
+            <i data-lucide="menu"></i>
+          </button>
+          <div class="page-title-group">
+            <h1 class="page-heading">Citizen Grievance Submission</h1>
+            <p class="page-subheading">Report potholes, road cracks, and infrastructure defects to municipal engineers</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <span class="demo-chip">
+            <span class="demo-chip-pulse"></span> Prototype Mode
+          </span>
+
+          <div class="user-profile">
+            <div class="user-avatar">CZ</div>
+            <div class="user-info">
+              <span class="user-name">Citizen Portal</span>
+              <span class="user-role">Public Access</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="page-content">
+        <div class="demo-banner">
+          <div class="demo-banner-content">
+            <span class="demo-banner-badge">PROTOTYPE NOTE</span>
+            <span>
+              Submitting this form adds a real report into your browser's local state.
+              AI defect classification is simulated client-side for demonstration and ready for Flask model integration.
+            </span>
+          </div>
+        </div>
+
+        <!-- Form Layout Grid -->
+        <div class="report-page-grid">
+          <!-- Left Column: Form -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h3 class="card-title">Road Damage Incident Form</h3>
+                <span class="card-subtitle">Please provide precise visual and location details for municipal verification</span>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <form id="roadDamageForm" novalidate>
+                <input type="hidden" id="selectedCategoryInput" value="Pothole">
+                <input type="hidden" id="latitudeInput" value="28.6720">
+                <input type="hidden" id="longitudeInput" value="77.4485">
+
+                <!-- 1. Incident Title -->
+                <div class="form-group">
+                  <label class="form-label" for="reportTitleInput">
+                    Incident Title / Summary <span class="required">*</span>
+                  </label>
+                  <input type="text" id="reportTitleInput" class="form-input" placeholder="e.g., Severe Pothole near Raj Nagar Ext. Flyover" required>
+                  <div class="form-help">Keep it short and descriptive (minimum 5 characters).</div>
+                  <div id="titleError" class="form-error-feedback">
+                    <i data-lucide="alert-circle" style="width:13px; height:13px;"></i>
+                    <span>Please enter a descriptive incident title (min 5 characters).</span>
+                  </div>
+                </div>
+
+                <!-- 2. Damage Category Selection Tiles -->
+                <div class="form-group">
+                  <label class="form-label">
+                    Damage Category <span class="required">*</span>
+                  </label>
+                  <div class="category-tiles" id="categoryTilesContainer">
+                    <div class="category-tile selected" data-category="Pothole">
+                      <div class="category-tile-icon"><i data-lucide="circle-dot"></i></div>
+                      <span class="category-tile-name">Pothole</span>
+                    </div>
+                    <div class="category-tile" data-category="Road Crack">
+                      <div class="category-tile-icon"><i data-lucide="git-commit"></i></div>
+                      <span class="category-tile-name">Road Crack</span>
+                    </div>
+                    <div class="category-tile" data-category="Surface Damage">
+                      <div class="category-tile-icon"><i data-lucide="layers"></i></div>
+                      <span class="category-tile-name">Surface Damage</span>
+                    </div>
+                    <div class="category-tile" data-category="Waterlogging">
+                      <div class="category-tile-icon"><i data-lucide="droplet"></i></div>
+                      <span class="category-tile-name">Waterlogging</span>
+                    </div>
+                    <div class="category-tile" data-category="Other">
+                      <div class="category-tile-icon"><i data-lucide="alert-circle"></i></div>
+                      <span class="category-tile-name">Other Defect</span>
+                    </div>
+                  </div>
+                  <div id="categoryError" class="form-error-feedback">
+                    <i data-lucide="alert-circle" style="width:13px; height:13px;"></i>
+                    <span>Please select a damage category.</span>
+                  </div>
+                </div>
+
+                <!-- 3. Photo Upload / Drag Drop -->
+                <div class="form-group">
+                  <label class="form-label">
+                    Upload Road Damage Photo <span class="required">*</span>
+                  </label>
+                  <input type="file" id="damageImageFile" accept="image/jpeg,image/png,image/webp,image/jpg" style="display: none;">
+                  
+                  <div class="upload-dropzone" id="uploadDropzone">
+                    <i data-lucide="upload-cloud" class="dropzone-icon"></i>
+                    <div class="dropzone-text">Click to browse or drag and drop road damage image</div>
+                    <div class="dropzone-sub">Supports JPG, PNG, WebP (Max 5MB) &bull; Photo Required</div>
+                  </div>
+
+                  <!-- Image Preview Box -->
+                  <div id="imagePreviewBox" class="image-preview-box" style="display: none;">
+                    <img id="previewImage" class="preview-img" src="" alt="Selected Damage Preview">
+                    <div class="preview-overlay">
+                      <button type="button" id="removeImageBtn" class="btn btn-danger btn-sm" title="Remove photo">
+                        <i data-lucide="trash-2"></i> Remove Photo
+                      </button>
+                    </div>
+                  </div>
+
+                  <div id="photoError" class="form-error-feedback">
+                    <i data-lucide="alert-circle" style="width:13px; height:13px;"></i>
+                    <span id="photoErrorText">A photo of the road damage is required (max 5 MB).</span>
+                  </div>
+
+                  <!-- Quick test samples -->
+                  <div class="sample-images-section">
+                    <span style="font-size: 0.78rem; font-weight: 600; color: var(--text-secondary);">
+                      Or click a sample image to test quickly:
+                    </span>
+                    <div class="sample-images-grid" id="sampleImagesGrid">
+                      <!-- Rendered by reports.js -->
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 4. Location & Ward Details -->
+                <div class="form-row-2col">
+                  <div class="form-group">
+                    <label class="form-label" for="reportWardSelect">
+                      Municipal Ward / Zone <span class="required">*</span>
+                    </label>
+                    <select id="reportWardSelect" class="form-select">
+                      <option value="Ward 14 (Raj Nagar)">Ward 14 (Raj Nagar)</option>
+                      <option value="Ward 22 (Kavi Nagar)">Ward 22 (Kavi Nagar)</option>
+                      <option value="Ward 08 (Indirapuram)">Ward 08 (Indirapuram)</option>
+                      <option value="Ward 11 (Vasundhara)">Ward 11 (Vasundhara)</option>
+                      <option value="Ward 34 (Crossings)">Ward 34 (Crossings)</option>
+                      <option value="Ward 04 (Vaishali)">Ward 04 (Vaishali)</option>
+                      <option value="Ward 17 (City Central)">Ward 17 (City Central)</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="reportPrioritySelect">
+                      Citizen Severity Perception <span class="required">*</span>
+                    </label>
+                    <select id="reportPrioritySelect" class="form-select">
+                      <option value="High">High (Immediate Accident Risk)</option>
+                      <option value="Medium" selected>Medium (Traffic Slowdown / Pavement Wear)</option>
+                      <option value="Low">Low (Minor Surface Irregularity)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="reportLocationInput">
+                    Road / Street Address <span class="required">*</span>
+                  </label>
+                  <input type="text" id="reportLocationInput" class="form-input" placeholder="e.g. Master Plan Road, Sector 14, Raj Nagar, Ghaziabad" required>
+                  <div id="locationError" class="form-error-feedback">
+                    <i data-lucide="alert-circle" style="width:13px; height:13px;"></i>
+                    <span>Please enter a specific road location or street name (min 5 characters).</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="reportLandmarkInput">
+                    Nearest Landmark / Pillar No.
+                  </label>
+                  <input type="text" id="reportLandmarkInput" class="form-input" placeholder="e.g. 50m from ALT Circle, Opposite Gate 2">
+                </div>
+
+                <!-- Interactive Map Pinpoint Picker -->
+                <div class="form-group">
+                  <div class="form-label-row">
+                    <label class="form-label" style="margin-bottom: 0;">
+                      Pinpoint Location on Map
+                    </label>
+                    <button type="button" id="useGpsBtn" class="btn btn-outline btn-sm">
+                      <i data-lucide="crosshair"></i> Use My GPS
+                    </button>
+                  </div>
+                  <div class="form-help">Click anywhere on the map or drag the pin to set exact coordinates.</div>
+                  <div id="reportPickerMap"></div>
+                  <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.4rem;">
+                    Selected Coordinates: <strong id="coordinatesDisplay" style="color: var(--primary);">28.6720° N, 77.4485° E</strong>
+                  </div>
+                </div>
+
+                <!-- 5. Description -->
+                <div class="form-group">
+                  <label class="form-label" for="reportDescInput">
+                    Description & Road Hazard Details <span class="required">*</span>
+                  </label>
+                  <textarea id="reportDescInput" class="form-textarea" rows="3" placeholder="Describe the depth, size, and vehicular impact (e.g. causes traffic jams, two-wheelers losing balance)..." required></textarea>
+                  <div id="descError" class="form-error-feedback">
+                    <i data-lucide="alert-circle" style="width:13px; height:13px;"></i>
+                    <span>Please provide hazard details (min 10 characters).</span>
+                  </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitReportBtn" class="btn btn-primary btn-submit-report">
+                  <i data-lucide="send"></i> Submit Road Damage Report
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Right Column: Instructions & AI Notice -->
+          <div class="report-instructions-column">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title"><i data-lucide="shield-check" style="color: var(--accent);"></i> How NagarSathi Works</h4>
+              </div>
+              <div class="card-body" style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+                <ol style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                  <li>
+                    <strong>Upload Photo:</strong> A clear photo taken during daylight helps AI and engineers evaluate damage severity.
+                  </li>
+                  <li>
+                    <strong>AI Feature Extraction:</strong> NagarSathi's neural network estimates pothole area, depth, and road risk.
+                  </li>
+                  <li>
+                    <strong>Municipal Prioritization:</strong> Reports are deduplicated and scheduled into contractor repair budgets.
+                  </li>
+                  <li>
+                    <strong>Public Verification:</strong> Upon repair, verified after-repair photos are published to the transparency portal.
+                  </li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="card" style="background: #f8fafc; border-left: 4px solid var(--accent);">
+              <div class="card-body">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                  <span class="ai-badge">AI Integration Note</span>
+                  <span style="font-size: 0.75rem; font-weight: 700; color: var(--primary);">Flask Backend Ready</span>
+                </div>
+                <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;">
+                  The frontend currently provides a high-fidelity client-side simulation.
+                  When connected to the Flask server, this form dispatches <code>multipart/form-data</code> to <code>POST /api/reports</code>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Success State Modal -->
+  <div class="modal-backdrop" id="reportSuccessModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--success-bg); color: var(--success); display: flex; align-items: center; justify-content: center;">
+            <i data-lucide="check"></i>
+          </div>
+          <h3 class="modal-title">Grievance Registered Successfully</h3>
+        </div>
+        <button class="modal-close" onclick="closeSuccessModal()" aria-label="Close">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div style="text-align: center; margin-bottom: 1.25rem;">
+          <div style="font-size: 0.8rem; color: var(--text-muted);">Unique Tracking Reference</div>
+          <div id="modalReportId" style="font-size: 1.6rem; font-family: monospace; font-weight: 800; color: var(--primary); margin-top: 0.25rem;">
+            NS-2026-XXXX
+          </div>
+        </div>
+
+        <!-- AI Simulation Output Card -->
+        <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; margin-bottom: 1.25rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.25rem;">
+            <span class="ai-badge"><i data-lucide="cpu" style="width:12px; height:12px;"></i> Simulated AI Classification</span>
+            <span id="modalAiConfidence" style="font-size: 0.72rem; font-weight: 700; color: var(--accent); background: #f0fdfa; padding: 2px 6px; border-radius: 4px; border: 1px solid #ccfbf1;">Simulated Estimate (Model Pending)</span>
+          </div>
+          <div style="font-size: 0.85rem; color: var(--text-main); font-weight: 600;">
+            Defect: <span id="modalAiCategory">Pothole</span>
+          </div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">
+            Location: <span id="modalReportLocation" style="color: var(--text-secondary);">Ghaziabad</span>
+          </div>
+          <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.5rem; border-top: 1px dashed var(--border); padding-top: 0.4rem; line-height: 1.4;">
+            <i data-lucide="info" style="width:12px; height:12px;"></i> <strong>AI Transparency:</strong> Defect category is an illustrative client-side simulation. Real YOLOv8 neural network inference will be integrated via Flask endpoint <code>POST /api/reports</code>.
+          </div>
+        </div>
+
+        <p style="font-size: 0.82rem; color: var(--text-secondary); text-align: center;">
+          Your report has been queued for municipal verification. You can track its live status on the map or inspect it in the repair console.
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm" onclick="closeSuccessModal()">Close</button>
+        <a id="modalViewOnMapLink" href="map.html" class="btn btn-outline btn-sm">
+          <i data-lucide="map"></i> View on Live Map
+        </a>
+        <a id="modalViewRepairLink" href="repairs.html" class="btn btn-primary btn-sm">
+          <i data-lucide="wrench"></i> Repair Console
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data/demo-data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/reports.js"></script>
+</body>
+</html>

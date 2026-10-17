@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NagarSathi — Budget Planner & Optimization Engine | Resource Allocator</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body id="budgetPlannerPage">
+  <div class="app-container">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="brand-link">
+          <div class="brand-logo-icon">
+            <i data-lucide="activity"></i>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">NagarSathi <span class="brand-tag">AI</span></span>
+            <span class="brand-tagline">Together for Better Roads.</span>
+          </div>
+        </a>
+        <button id="sidebarCloseBtn" class="sidebar-close-btn" aria-label="Close Sidebar"><i data-lucide="x"></i></button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Navigation</div>
+        <a href="index.html" class="nav-item">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Overview</span>
+        </a>
+        <a href="report.html" class="nav-item">
+          <i data-lucide="plus-circle"></i>
+          <span>Report Road Damage</span>
+        </a>
+        <a href="map.html" class="nav-item">
+          <i data-lucide="map"></i>
+          <span>Live Issue Map</span>
+        </a>
+        <a href="repairs.html" class="nav-item">
+          <i data-lucide="wrench"></i>
+          <span>Repair Management</span>
+        </a>
+
+        <div class="nav-section-title">Intelligence & Planning</div>
+        <a href="insights.html" class="nav-item">
+          <i data-lucide="sparkles"></i>
+          <span>AI Insights</span>
+        </a>
+        <a href="budget.html" class="nav-item active">
+          <i data-lucide="calculator"></i>
+          <span>Budget Planner</span>
+        </a>
+
+        <div class="nav-section-title">Public & Governance</div>
+        <a href="transparency.html" class="nav-item">
+          <i data-lucide="shield-check"></i>
+          <span>Public Transparency</span>
+        </a>
+        <a href="about.html" class="nav-item">
+          <i data-lucide="info"></i>
+          <span>About NagarSathi</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-zone-card">
+          <div class="sidebar-zone-title">
+            <i data-lucide="building-2"></i> Ghaziabad Zone 3
+          </div>
+          <div class="sidebar-zone-sub">Fiscal Planning Active</div>
+          <button id="resetDemoBtn" class="sidebar-reset-btn">
+            <i data-lucide="refresh-cw"></i> Reset Demo Database
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+      <!-- Top Navbar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Toggle Menu">
+            <i data-lucide="menu"></i>
+          </button>
+          <div class="page-title-group">
+            <h1 class="page-heading">Infrastructure Repair Budget Planner</h1>
+            <p class="page-subheading">Algorithmic fund allocation balancing arterial safety with city-wide coverage</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <span class="demo-chip">
+            <span class="demo-chip-pulse"></span> PWD Rate Estimates
+          </span>
+
+          <a href="report.html" class="btn-report-quick">
+            <i data-lucide="plus"></i>
+            <span>Log Defect</span>
+          </a>
+
+          <div class="user-profile">
+            <div class="user-avatar">FO</div>
+            <div class="user-info">
+              <span class="user-name">Finance Officer</span>
+              <span class="user-role">GMC Works Dept</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="page-content">
+        <!-- Explanatory Disclaimer Banner -->
+        <div class="demo-banner">
+          <div class="demo-banner-content">
+            <span class="demo-banner-badge">CPWD RATE BASIS</span>
+            <span>
+              Cost figures are illustrative demo estimates based on standard CPWD schedule of rates (~₹ 1,200 - ₹ 3,500 per sq.m of patch milling and compaction).
+              Actual execution requires site survey and contractor bidding.
+            </span>
+          </div>
+        </div>
+
+        <!-- Budget Configuration Toolbar -->
+        <div class="card" style="margin-bottom: 1.75rem;">
+          <div class="card-header">
+            <div class="card-title-group">
+              <h3 class="card-title">Fiscal Allocation Controls</h3>
+              <span class="card-subtitle">Define available municipal repair grant and prioritize repair strategy</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div style="display: grid; grid-template-columns: 1.2fr 1fr auto; gap: 1.5rem; align-items: end;">
+              <!-- Budget Amount & Presets -->
+              <div>
+                <label class="form-label" for="budgetAmountInput">Available Repair Budget (₹ INR)</label>
+                <div style="display: flex; gap: 0.5rem;">
+                  <input type="number" id="budgetAmountInput" class="form-input" value="500000" step="25000" min="50000" style="font-size: 1rem; font-weight: 700;">
+                </div>
+                <div style="display: flex; gap: 0.4rem; margin-top: 0.5rem;">
+                  <span style="font-size: 0.72rem; color: var(--text-muted); align-self: center;">Presets:</span>
+                  <button type="button" class="btn btn-outline btn-sm budget-preset-btn" data-amount="250000">₹ 2.5 Lakhs</button>
+                  <button type="button" class="btn btn-outline btn-sm budget-preset-btn active" data-amount="500000">₹ 5.0 Lakhs</button>
+                  <button type="button" class="btn btn-outline btn-sm budget-preset-btn" data-amount="750000">₹ 7.5 Lakhs</button>
+                  <button type="button" class="btn btn-outline btn-sm budget-preset-btn" data-amount="1000000">₹ 10.0 Lakhs</button>
+                </div>
+              </div>
+
+              <!-- Optimization Strategy Selector -->
+              <div>
+                <label class="form-label" for="budgetStrategySelect">Optimization Algorithm</label>
+                <select id="budgetStrategySelect" class="form-select" style="font-weight: 600;">
+                  <option value="priority" selected>Priority-First Optimization (Safety Critical)</option>
+                  <option value="coverage">Lower-Cost Alternative (Max Issues Fixed)</option>
+                  <option value="balanced">Balanced Value/Cost Model</option>
+                </select>
+                <div class="form-help">Optimizes using greedy knapsack heuristic.</div>
+              </div>
+
+              <!-- Run Action -->
+              <div>
+                <button type="button" id="generatePlanBtn" class="btn btn-primary" style="padding: 0.75rem 1.25rem;">
+                  <i data-lucide="sparkles"></i> Generate Recommended Plan
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Budget Allocation Summary Banner -->
+        <div class="budget-summary-box">
+          <div>
+            <div class="budget-metric-label">Allocated Repair Cost</div>
+            <div class="budget-metric-val" id="metricAllocatedCost">₹ 4,32,000</div>
+            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem;">Sum of approved repairs</div>
+          </div>
+
+          <div>
+            <div class="budget-metric-label">Remaining Unallocated</div>
+            <div class="budget-metric-val highlight" id="metricRemainingBudget">₹ 68,000</div>
+            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem;">Fiscal reserve buffer</div>
+          </div>
+
+          <div>
+            <div class="budget-metric-label">Roads / Issues Covered</div>
+            <div class="budget-metric-val" id="metricCoveredCount">7 of 9</div>
+            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem;">Pending defects addressed</div>
+          </div>
+
+          <div>
+            <div class="budget-metric-label">High-Priority Hazards Covered</div>
+            <div class="budget-metric-val" id="metricHighCovered" style="color: #fca5a5;">4 of 5</div>
+            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem;">Critical road hazards neutralized</div>
+          </div>
+
+          <div style="grid-column: 1 / -1; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 600;">
+              <span>Budget Utilization Gauge</span>
+              <span id="budgetProgressPercent">86% Utilized</span>
+            </div>
+            <div class="budget-progress-track">
+              <div id="budgetProgressBar" class="budget-progress-bar" style="width: 86%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Strategy Comparison Cards -->
+        <div style="margin-bottom: 1.75rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.75rem;">
+            Strategy Trade-off Comparison
+          </h3>
+          <div id="budgetComparisonGrid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+            <!-- Rendered dynamically by budget.js -->
+          </div>
+        </div>
+
+        <!-- Interactive Task Allocation Checklist -->
+        <div class="card">
+          <div class="card-header" style="flex-wrap: wrap; gap: 1rem;">
+            <div class="card-title-group">
+              <h3 class="card-title">Repair Task Work Order Checklist</h3>
+              <span class="card-subtitle">Check or uncheck individual items to manually customize work orders with live budget recalculation</span>
+            </div>
+            <div style="font-size: 0.78rem; color: var(--text-muted);">
+              <i data-lucide="info" style="width: 14px; height: 14px;"></i> Highlighted rows represent recommended tasks within current budget
+            </div>
+          </div>
+
+          <div class="card-body" style="padding: 0;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th style="width: 50px; text-align: center;">Fund</th>
+                    <th>Ticket / Summary</th>
+                    <th>Location</th>
+                    <th>Priority</th>
+                    <th>Risk Score</th>
+                    <th>Est. Repair Cost</th>
+                  </tr>
+                </thead>
+                <tbody id="budgetTasksTableBody">
+                  <!-- Dynamically populated by budget.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data/demo-data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/budget.js"></script>
+</body>
+</html>

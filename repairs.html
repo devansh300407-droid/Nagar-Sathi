@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NagarSathi — Repair Management Console | Municipal Road Works</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body id="repairManagementPage">
+  <div class="app-container">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="brand-link">
+          <div class="brand-logo-icon">
+            <i data-lucide="activity"></i>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">NagarSathi <span class="brand-tag">AI</span></span>
+            <span class="brand-tagline">Together for Better Roads.</span>
+          </div>
+        </a>
+        <button id="sidebarCloseBtn" class="sidebar-close-btn" aria-label="Close Sidebar"><i data-lucide="x"></i></button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Navigation</div>
+        <a href="index.html" class="nav-item">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Overview</span>
+        </a>
+        <a href="report.html" class="nav-item">
+          <i data-lucide="plus-circle"></i>
+          <span>Report Road Damage</span>
+        </a>
+        <a href="map.html" class="nav-item">
+          <i data-lucide="map"></i>
+          <span>Live Issue Map</span>
+        </a>
+        <a href="repairs.html" class="nav-item active">
+          <i data-lucide="wrench"></i>
+          <span>Repair Management</span>
+        </a>
+
+        <div class="nav-section-title">Intelligence & Planning</div>
+        <a href="insights.html" class="nav-item">
+          <i data-lucide="sparkles"></i>
+          <span>AI Insights</span>
+        </a>
+        <a href="budget.html" class="nav-item">
+          <i data-lucide="calculator"></i>
+          <span>Budget Planner</span>
+        </a>
+
+        <div class="nav-section-title">Public & Governance</div>
+        <a href="transparency.html" class="nav-item">
+          <i data-lucide="shield-check"></i>
+          <span>Public Transparency</span>
+        </a>
+        <a href="about.html" class="nav-item">
+          <i data-lucide="info"></i>
+          <span>About NagarSathi</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-zone-card">
+          <div class="sidebar-zone-title">
+            <i data-lucide="building-2"></i> Ghaziabad Zone 3
+          </div>
+          <div class="sidebar-zone-sub">Engineer Console Active</div>
+          <button id="resetDemoBtn" class="sidebar-reset-btn">
+            <i data-lucide="refresh-cw"></i> Reset Demo Database
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+      <!-- Top Navbar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Toggle Menu">
+            <i data-lucide="menu"></i>
+          </button>
+          <div class="page-title-group">
+            <h1 class="page-heading">Municipal Repair & Work Order Management</h1>
+            <p class="page-subheading">Dispatch contractors, inspect repair quality, and audit verified road fixes</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <span class="demo-chip">
+            <span class="demo-chip-pulse"></span> Admin Console
+          </span>
+
+          <a href="report.html" class="btn-report-quick">
+            <i data-lucide="plus"></i>
+            <span>Log Defect</span>
+          </a>
+
+          <div class="user-profile">
+            <div class="user-avatar">AV</div>
+            <div class="user-info">
+              <span class="user-name">Er. Alok Verma</span>
+              <span class="user-role">Assistant Engineer (AE)</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="page-content">
+        <!-- Pipeline Summary Strip -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+          <div class="card" style="padding: 1rem; text-align: center;">
+            <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Total In Pipeline</div>
+            <div id="counterAll" style="font-size: 1.6rem; font-weight: 800; color: var(--primary); margin-top: 2px;">12</div>
+          </div>
+          <div class="card" style="padding: 1rem; text-align: center; border-left: 3px solid var(--info);">
+            <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Reported (New)</div>
+            <div id="counterReported" style="font-size: 1.6rem; font-weight: 800; color: var(--info); margin-top: 2px;">3</div>
+          </div>
+          <div class="card" style="padding: 1rem; text-align: center; border-left: 3px solid #8b5cf6;">
+            <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Under Review</div>
+            <div id="counterInReview" style="font-size: 1.6rem; font-weight: 800; color: #8b5cf6; margin-top: 2px;">3</div>
+          </div>
+          <div class="card" style="padding: 1rem; text-align: center; border-left: 3px solid var(--warning);">
+            <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">In Progress</div>
+            <div id="counterInProgress" style="font-size: 1.6rem; font-weight: 800; color: var(--warning); margin-top: 2px;">3</div>
+          </div>
+          <div class="card" style="padding: 1rem; text-align: center; border-left: 3px solid var(--success);">
+            <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Resolved & Verified</div>
+            <div id="counterResolved" style="font-size: 1.6rem; font-weight: 800; color: var(--success); margin-top: 2px;">3</div>
+          </div>
+        </div>
+
+        <!-- Filter Toolbar -->
+        <div class="filter-toolbar">
+          <div class="filter-group-left">
+            <div class="search-input-wrapper" style="min-width: 280px;">
+              <i data-lucide="search" class="search-icon"></i>
+              <input type="text" id="repairSearchInput" class="search-input" placeholder="Search ticket ID, road, contractor...">
+            </div>
+
+            <select id="repairStatusFilter" class="form-select" style="width: auto;">
+              <option value="All">All Statuses</option>
+              <option value="Reported">Reported</option>
+              <option value="Under Review">Under Review</option>
+              <option value="Repair in Progress">In Progress</option>
+              <option value="Resolved">Resolved</option>
+            </select>
+
+            <select id="repairPriorityFilter" class="form-select" style="width: auto;">
+              <option value="All">All Priorities</option>
+              <option value="High">High Priority</option>
+              <option value="Medium">Medium Priority</option>
+              <option value="Low">Low Priority</option>
+            </select>
+
+            <select id="repairWardFilter" class="form-select" style="width: auto;">
+              <option value="All">All Municipal Wards</option>
+              <option value="Raj Nagar">Ward 14 (Raj Nagar)</option>
+              <option value="Kavi Nagar">Ward 22 (Kavi Nagar)</option>
+              <option value="Indirapuram">Ward 08 (Indirapuram)</option>
+              <option value="Vasundhara">Ward 11 (Vasundhara)</option>
+              <option value="Crossings">Ward 34 (Crossings)</option>
+              <option value="Vaishali">Ward 04 (Vaishali)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Repairs Management Table -->
+        <div class="card">
+          <div class="card-body" style="padding: 0;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Ticket / Date</th>
+                    <th>Location & Ward</th>
+                    <th>Defect / Est. Cost</th>
+                    <th>Priority & Risk</th>
+                    <th>Current Status</th>
+                    <th>Contractor / Inspector</th>
+                    <th>Manage</th>
+                  </tr>
+                </thead>
+                <tbody id="repairsTableBody">
+                  <!-- Dynamically populated by repairs.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Inspection & Status Action Modal -->
+  <div class="modal-backdrop" id="repairActionModal">
+    <div class="modal-dialog" style="max-width: 740px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <div class="report-id-pill" id="modalTicketId">NS-2026-XXXX</div>
+          <h3 class="modal-title" style="font-size: 1rem;" id="modalTicketTitle">Road Defect Inspection</h3>
+        </div>
+        <button class="modal-close" onclick="closeInspectionModal()" aria-label="Close">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Location and Defect Overview -->
+        <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.85rem 1rem; margin-bottom: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.35rem;">
+            <span><strong>Location:</strong> <span id="modalTicketLocation">Sector 14</span></span>
+            <span><strong>Category:</strong> <span id="modalTicketCategory">Pothole</span></span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.82rem;">
+            <span><strong>Estimated Cost:</strong> <span id="modalTicketCost" style="font-weight: 700; color: var(--primary);">₹ 38,500</span></span>
+            <span style="color: var(--text-muted); font-size: 0.75rem;">PWD Schedule of Rates Basis</span>
+          </div>
+          <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.5rem; border-top: 1px dashed var(--border); padding-top: 0.4rem;">
+            <strong>Citizen Note:</strong> <span id="modalTicketDesc">--</span>
+          </div>
+        </div>
+
+        <!-- Before & After Photos Side-by-Side -->
+        <div style="margin-bottom: 1.25rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <label class="form-label" style="margin-bottom: 0;">Inspection Imagery Audit</label>
+            <button type="button" class="btn btn-outline btn-sm" onclick="loadSampleAfterImage()">
+              <i data-lucide="image"></i> Load Sample Fixed Photo
+            </button>
+          </div>
+          <div class="before-after-grid">
+            <div class="img-compare-card">
+              <span class="img-compare-tag tag-before">Before Repair</span>
+              <img id="modalBeforeImg" src="" alt="Before Repair">
+            </div>
+            <div class="img-compare-card" style="display: flex; align-items: center; justify-content: center; min-height: 160px;">
+              <span class="img-compare-tag tag-after">After Repair</span>
+              <img id="modalAfterImg" src="" alt="After Repair" style="display: none;">
+              <div id="modalAfterPlaceholder" style="text-align: center; padding: 1rem; color: var(--text-muted); font-size: 0.78rem;">
+                <i data-lucide="camera" style="width: 28px; height: 28px; margin-bottom: 4px; color: var(--text-light);"></i>
+                <p>No completion photo uploaded yet.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Explainable Priority Breakdown -->
+        <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.85rem 1rem; margin-bottom: 1.25rem;">
+          <div style="font-size: 0.78rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; display: flex; justify-content: space-between;">
+            <span>Explainable Priority Score Breakdown</span>
+            <span>Total Risk: <strong id="scoreTotal" style="color: var(--danger);">88/100</strong></span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; text-align: center; font-size: 0.75rem;">
+            <div style="background: #f8fafc; padding: 0.4rem; border-radius: 4px;">
+              <div style="color: var(--text-muted);">Severity</div>
+              <div id="scoreSeverity" style="font-weight: 700;">38/40</div>
+            </div>
+            <div style="background: #f8fafc; padding: 0.4rem; border-radius: 4px;">
+              <div style="color: var(--text-muted);">Traffic Volume</div>
+              <div id="scoreTraffic" style="font-weight: 700;">24/25</div>
+            </div>
+            <div style="background: #f8fafc; padding: 0.4rem; border-radius: 4px;">
+              <div style="color: var(--text-muted);">Repeat Reports</div>
+              <div id="scoreRepeat" style="font-weight: 700;">18/20</div>
+            </div>
+            <div style="background: #f8fafc; padding: 0.4rem; border-radius: 4px;">
+              <div style="color: var(--text-muted);">Aging Factor</div>
+              <div id="scoreAging" style="font-weight: 700;">12/15</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Controls: Status, Contractor, Verification -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label" for="modalStatusSelect">Update Workflow Status</label>
+            <select id="modalStatusSelect" class="form-select">
+              <option value="Reported">Reported</option>
+              <option value="Under Review">Under Review</option>
+              <option value="Repair in Progress">Repair in Progress</option>
+              <option value="Resolved">Resolved (Completed)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="modalContractorSelect">Assigned Maintenance Contractor</label>
+            <select id="modalContractorSelect" class="form-select">
+              <option value="Unassigned">Unassigned</option>
+              <option value="Shree Ganesh Infra Con">Shree Ganesh Infra Con (Ward 14/34)</option>
+              <option value="Apex Roadways Ltd">Apex Roadways Ltd (Central Highway)</option>
+              <option value="Indirapuram Civic Works">Indirapuram Civic Works (Ward 08)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label" for="modalInspectorInput">Field Inspecting Engineer</label>
+            <input type="text" id="modalInspectorInput" class="form-input" value="Er. Alok Verma (AE)">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="modalCostInput">Estimated / Billed Cost (₹)</label>
+            <input type="number" id="modalCostInput" class="form-input" value="38500">
+          </div>
+        </div>
+
+        <!-- Manual Verification Checkbox -->
+        <div style="background: var(--accent-subtle); border: 1px solid var(--accent-light); border-radius: var(--radius-sm); padding: 0.75rem 1rem;">
+          <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; font-weight: 600; color: var(--text-main); cursor: pointer;">
+            <input type="checkbox" id="modalVerifiedCheck" style="width: 16px; height: 16px;">
+            <span>Mark as Field-Verified by Junior Engineer / Assistant Engineer</span>
+          </label>
+          <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem; margin-left: 1.5rem;">
+            Quality assurance sign-off per GMC Infrastructure Manual. Note: Automatic computer vision verification requires live model integration.
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm" onclick="closeInspectionModal()">Cancel</button>
+        <button class="btn btn-primary btn-sm" id="saveRepairStatusBtn">
+          <i data-lucide="check"></i> Save Status & Work Order
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data/demo-data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/repairs.js"></script>
+</body>
+</html>

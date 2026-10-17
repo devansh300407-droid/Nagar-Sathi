@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NagarSathi — AI Insights & Predictive Analytics | Smart City Intelligence</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body id="aiInsightsPage">
+  <div class="app-container">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="brand-link">
+          <div class="brand-logo-icon">
+            <i data-lucide="activity"></i>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">NagarSathi <span class="brand-tag">AI</span></span>
+            <span class="brand-tagline">Together for Better Roads.</span>
+          </div>
+        </a>
+        <button id="sidebarCloseBtn" class="sidebar-close-btn" aria-label="Close Sidebar"><i data-lucide="x"></i></button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Navigation</div>
+        <a href="index.html" class="nav-item">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Overview</span>
+        </a>
+        <a href="report.html" class="nav-item">
+          <i data-lucide="plus-circle"></i>
+          <span>Report Road Damage</span>
+        </a>
+        <a href="map.html" class="nav-item">
+          <i data-lucide="map"></i>
+          <span>Live Issue Map</span>
+        </a>
+        <a href="repairs.html" class="nav-item">
+          <i data-lucide="wrench"></i>
+          <span>Repair Management</span>
+        </a>
+
+        <div class="nav-section-title">Intelligence & Planning</div>
+        <a href="insights.html" class="nav-item active">
+          <i data-lucide="sparkles"></i>
+          <span>AI Insights</span>
+        </a>
+        <a href="budget.html" class="nav-item">
+          <i data-lucide="calculator"></i>
+          <span>Budget Planner</span>
+        </a>
+
+        <div class="nav-section-title">Public & Governance</div>
+        <a href="transparency.html" class="nav-item">
+          <i data-lucide="shield-check"></i>
+          <span>Public Transparency</span>
+        </a>
+        <a href="about.html" class="nav-item">
+          <i data-lucide="info"></i>
+          <span>About NagarSathi</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-zone-card">
+          <div class="sidebar-zone-title">
+            <i data-lucide="cpu"></i> AI Model Service
+          </div>
+          <div class="sidebar-zone-sub">Inference Simulation Active</div>
+          <button id="resetDemoBtn" class="sidebar-reset-btn">
+            <i data-lucide="refresh-cw"></i> Reset Demo Database
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+      <!-- Top Navbar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Toggle Menu">
+            <i data-lucide="menu"></i>
+          </button>
+          <div class="page-title-group">
+            <h1 class="page-heading">AI Decision Support & Predictive Analytics</h1>
+            <p class="page-subheading">Neural defect detection, duplicate clustering, explainable priority scoring, and monsoon vulnerability</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <span class="demo-chip">
+            <span class="demo-chip-pulse"></span> Simulated Inferences
+          </span>
+
+          <a href="report.html" class="btn-report-quick">
+            <i data-lucide="plus"></i>
+            <span>Test Image</span>
+          </a>
+
+          <div class="user-profile">
+            <div class="user-avatar">AI</div>
+            <div class="user-info">
+              <span class="user-name">Vision Engine</span>
+              <span class="user-role">Demo Simulator</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="page-content">
+        <div class="demo-banner">
+          <div class="demo-banner-content">
+            <span class="demo-banner-badge">AI INTEGRATION TRANSPARENCY</span>
+            <span>
+              All computer vision classifications, duplicate clustering, and vulnerability curves shown below are labelled simulated prototype outputs.
+              The architecture is structured to seamlessly bind to a YOLOv8 / PyTorch Flask service at <code>/api/ai/classify</code>.
+            </span>
+          </div>
+        </div>
+
+        <!-- Section A: Interactive Computer Vision Classifier Demo -->
+        <div class="card" style="margin-bottom: 1.75rem;">
+          <div class="card-header">
+            <div class="card-title-group">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="ai-badge">Module A</span>
+                <h3 class="card-title">Automated Road Damage Classification Engine</h3>
+              </div>
+              <span class="card-subtitle">Real-time defect classification, confidence scores, and severity grading</span>
+            </div>
+            <span class="badge badge-low">Flask Ready: /api/ai/classify</span>
+          </div>
+
+          <div class="card-body">
+            <!-- Sample Selector Buttons -->
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
+              <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">Select Test Case:</span>
+              <button class="btn btn-outline btn-sm ai-test-btn active" data-case="pothole">Case 1: Deep Pothole</button>
+              <button class="btn btn-outline btn-sm ai-test-btn" data-case="crack">Case 2: Alligator Cracks</button>
+              <button class="btn btn-outline btn-sm ai-test-btn" data-case="waterlog">Case 3: Waterlogging</button>
+              <button class="btn btn-outline btn-sm ai-test-btn" data-case="ravelling">Case 4: Edge Ravelling</button>
+            </div>
+
+            <!-- Visualization Grid -->
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 1.5rem; align-items: start;">
+              <!-- Image with Bounding Box simulation -->
+              <div style="position: relative; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); background: #0f172a;">
+                <img id="aiDemoDisplayImg" src="https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&w=600&q=80" alt="Defect" style="width: 100%; height: 260px; object-fit: cover; display: block; opacity: 0.9;">
+                <!-- Simulated Bounding Box Overlay -->
+                <div style="position: absolute; top: 25%; left: 30%; width: 45%; height: 50%; border: 2px dashed #0d9488; background: rgba(13, 148, 136, 0.15); border-radius: 4px; pointer-events: none;">
+                  <span style="position: absolute; top: -20px; left: 0; background: #0d9488; color: #fff; font-size: 0.65rem; font-weight: 700; padding: 1px 6px; border-radius: 2px;">
+                    DEFECT REGION
+                  </span>
+                </div>
+              </div>
+
+              <!-- Inferred Results Card -->
+              <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.35rem;">
+                  <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Inference Telemetry</span>
+                  <span class="badge badge-under-review"><i data-lucide="cpu"></i> Simulated Inference (Flask Pending)</span>
+                </div>
+
+                <div style="margin-bottom: 0.85rem;">
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Predicted Defect Class:</div>
+                  <div id="aiDemoCategory" style="font-size: 1.15rem; font-weight: 800; color: var(--primary);">Severe Pothole (Structural Pit)</div>
+                </div>
+
+                <div style="margin-bottom: 0.85rem;">
+                  <div style="display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 600; margin-bottom: 0.25rem;">
+                    <span>Simulated Model Confidence:</span>
+                    <span id="aiDemoConf" style="color: var(--accent); font-weight: 700;">Simulated ~96%</span>
+                  </div>
+                  <div class="score-progress" style="height: 8px;">
+                    <div id="aiDemoConfBar" class="score-fill" style="width: 96.4%; background: var(--accent);"></div>
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.85rem; font-size: 0.78rem;">
+                  <div>
+                    <span style="color: var(--text-muted);">Severity Grade:</span>
+                    <div id="aiDemoGrade" style="font-weight: 700; color: var(--danger);">Critical (Grade 4)</div>
+                  </div>
+                  <div>
+                    <span style="color: var(--text-muted);">Estimated Affected Area:</span>
+                    <div id="aiDemoArea" style="font-weight: 700; color: var(--primary);">1.4m x 0.8m (~0.85 sq.m)</div>
+                  </div>
+                </div>
+
+                <div style="background: #ffffff; border: 1px solid var(--border); padding: 0.6rem 0.85rem; border-radius: var(--radius-sm); font-size: 0.78rem;">
+                  <strong style="color: var(--accent);">Recommended Engineering Protocol:</strong>
+                  <div id="aiDemoAction" style="color: var(--text-secondary); margin-top: 0.2rem;">
+                    Full-depth patch milling with cold/hot mix asphalt compaction.
+                  </div>
+                </div>
+
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.6rem; border-top: 1px dashed var(--border); padding-top: 0.5rem; line-height: 1.4;">
+                  <i data-lucide="info" style="width:12px; height:12px;"></i> <strong>AI Model Notice:</strong> Confidence score and defect bounding area are illustrative prototype estimates. Real YOLOv8 inference will replace this telemetry once connected to <code>POST /api/ai/classify</code>.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section B & C Grid -->
+        <div class="charts-grid">
+          <!-- Section B: Corridor Hotspot Risk Map -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span class="ai-badge">Module B</span>
+                  <h3 class="card-title">Infrastructure Risk Corridors</h3>
+                </div>
+                <span class="card-subtitle">High-frequency recurrence clusters in Ghaziabad</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="riskCorridorsList">
+                <!-- Dynamically populated by insights.js -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Section C: Duplicate Report Clustering -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span class="ai-badge">Module C</span>
+                  <h3 class="card-title">Duplicate Grievance Detection</h3>
+                </div>
+                <span class="card-subtitle">Spatial & visual clustering preventing double contractor billing</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem;">
+                When multiple citizens report the same road crater, NagarSathi clusters reports within a 25-meter radius and flags them for human confirmation.
+              </p>
+              <div id="duplicateReportsContainer">
+                <!-- Dynamically populated by insights.js -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section D: Monsoon Readiness & Predictive Maintenance -->
+        <div class="card" style="margin-top: 1.75rem;">
+          <div class="card-header">
+            <div class="card-title-group">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="ai-badge">Module D</span>
+                <h3 class="card-title">Predictive Maintenance & Monsoon Vulnerability</h3>
+              </div>
+              <span class="card-subtitle">Pavement condition deterioration modeling correlated with rainfall forecasts</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: center;">
+              <div>
+                <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem;">
+                  Monsoon Early Warning Advisory (GMC Zone 3)
+                </h4>
+                <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+                  Historical telemetry confirms that <strong>64% of road surface failures</strong> occur within 14 days of sustained monsoon precipitation due to sub-base water saturation.
+                  NagarSathi recommends sealing <strong>18 micro-cracks</strong> in Kavi Nagar and cleaning stormwater grates in Indirapuram before heavy rainfall to avoid ₹ 4.2 Lakhs in corrective rebuilding costs.
+                </p>
+                <div style="display: flex; gap: 1rem; font-size: 0.8rem;">
+                  <div style="background: var(--warning-bg); border: 1px solid var(--warning-border); padding: 0.75rem; border-radius: var(--radius-sm); flex: 1;">
+                    <div style="font-weight: 700; color: var(--warning-text);">High Risk Forecast</div>
+                    <div style="color: var(--text-muted); font-size: 0.72rem; margin-top: 2px;">Kala Patthar Invert Level</div>
+                  </div>
+                  <div style="background: var(--success-bg); border: 1px solid var(--success-border); padding: 0.75rem; border-radius: var(--radius-sm); flex: 1;">
+                    <div style="font-weight: 700; color: var(--success-text);">Preventive Savings</div>
+                    <div style="color: var(--text-muted); font-size: 0.72rem; margin-top: 2px;">Estimated ₹ 3.8L Saved</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pavement Deterioration Formula Card -->
+              <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem;">
+                <h5 style="font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">
+                  Pavement Degradation Curve (Illustrative Simulation)
+                </h5>
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+                  Condition Index PCI = 100 - &alpha; &times; (Age)<sup>1.4</sup> - &beta; &times; (Axle Load Factor)
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.75rem;">
+                  <div>
+                    <div style="display: flex; justify-content: space-between;">
+                      <span>Years 0-3: Intact Bitumen</span>
+                      <strong style="color: var(--success);">PCI: 90-100</strong>
+                    </div>
+                    <div class="score-progress"><div class="score-fill" style="width: 95%; background: var(--success);"></div></div>
+                  </div>
+                  <div>
+                    <div style="display: flex; justify-content: space-between;">
+                      <span>Years 3-5: Micro-Cracks Appear</span>
+                      <strong style="color: var(--warning);">PCI: 65-80</strong>
+                    </div>
+                    <div class="score-progress"><div class="score-fill" style="width: 72%; background: var(--warning);"></div></div>
+                  </div>
+                  <div>
+                    <div style="display: flex; justify-content: space-between;">
+                      <span>Years 5+: Critical Pothole Formation</span>
+                      <strong style="color: var(--danger);">PCI: &lt; 40</strong>
+                    </div>
+                    <div class="score-progress"><div class="score-fill" style="width: 35%; background: var(--danger);"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section E: Explainable Priority Scoring Engine (XAI) -->
+        <div class="card" style="margin-top: 1.75rem;">
+          <div class="card-header">
+            <div class="card-title-group">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="ai-badge">Module E</span>
+                <h3 class="card-title">Explainable Priority Scoring Engine (XAI)</h3>
+              </div>
+              <span class="card-subtitle">Transparent mathematical weighting ensuring auditability for municipal authorities</span>
+            </div>
+            <span class="badge badge-low">Deterministic Transparent Rules</span>
+          </div>
+
+          <div class="card-body">
+            <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; align-items: start;">
+              <!-- Left: Sliders -->
+              <div>
+                <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 1rem;">
+                  Interactive Weighting Simulator
+                </h4>
+
+                <!-- Slider 1: Severity -->
+                <div style="margin-bottom: 1.1rem;">
+                  <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem;">
+                    <span>1. Visible Damage Severity (Depth, Width, Geometry)</span>
+                    <span id="valSeverity" style="color: var(--accent);">38 / 40</span>
+                  </div>
+                  <input type="range" id="simSeveritySlider" min="0" max="40" value="38" style="width: 100%; accent-color: var(--accent);">
+                  <div style="font-size: 0.7rem; color: var(--text-muted);">Weight: 40% &bull; Evaluated by Computer Vision model</div>
+                </div>
+
+                <!-- Slider 2: Traffic Volume -->
+                <div style="margin-bottom: 1.1rem;">
+                  <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem;">
+                    <span>2. Road Hierarchy & Traffic Volume</span>
+                    <span id="valTraffic" style="color: var(--accent);">24 / 25</span>
+                  </div>
+                  <input type="range" id="simTrafficSlider" min="0" max="25" value="24" style="width: 100%; accent-color: var(--accent);">
+                  <div style="font-size: 0.7rem; color: var(--text-muted);">Weight: 25% &bull; Arterial highways scored higher than residential cul-de-sacs</div>
+                </div>
+
+                <!-- Slider 3: Citizen Reports -->
+                <div style="margin-bottom: 1.1rem;">
+                  <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem;">
+                    <span>3. Citizen Report Frequency & Upvotes</span>
+                    <span id="valRepeat" style="color: var(--accent);">18 / 20</span>
+                  </div>
+                  <input type="range" id="simRepeatSlider" min="0" max="20" value="18" style="width: 100%; accent-color: var(--accent);">
+                  <div style="font-size: 0.7rem; color: var(--text-muted);">Weight: 20% &bull; Multiple citizen grievances escalate priority</div>
+                </div>
+
+                <!-- Slider 4: Aging Factor -->
+                <div style="margin-bottom: 1.1rem;">
+                  <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem;">
+                    <span>4. Ticket Aging & Weather Degradation</span>
+                    <span id="valAging" style="color: var(--accent);">12 / 15</span>
+                  </div>
+                  <input type="range" id="simAgingSlider" min="0" max="15" value="12" style="width: 100%; accent-color: var(--accent);">
+                  <div style="font-size: 0.7rem; color: var(--text-muted);">Weight: 15% &bull; Unrepaired potholes accumulate aging penalty daily</div>
+                </div>
+              </div>
+
+              <!-- Right: Score Output Card -->
+              <div style="background: #0f172a; color: #fff; border-radius: var(--radius-lg); padding: 1.75rem; text-align: center;">
+                <div style="font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.05em; font-weight: 600;">
+                  Calculated Risk Score
+                </div>
+                <div id="simTotalScore" style="font-size: 3rem; font-weight: 800; color: #5eead4; line-height: 1.1; margin: 0.5rem 0;">
+                  92 / 100
+                </div>
+
+                <div style="margin-bottom: 1.25rem;">
+                  <div class="score-progress" style="height: 10px; background: rgba(255, 255, 255, 0.15);">
+                    <div id="simScoreFill" class="score-fill" style="width: 92%; background: var(--danger);"></div>
+                  </div>
+                </div>
+
+                <div style="margin-bottom: 1.25rem;">
+                  <span id="simPriorityBadge" class="badge badge-high" style="font-size: 0.85rem; padding: 0.4rem 0.85rem;">
+                    HIGH PRIORITY (SLA: 24h)
+                  </span>
+                </div>
+
+                <p style="font-size: 0.75rem; color: #cbd5e1; line-height: 1.5; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 0.85rem;">
+                  This transparent mathematical model eliminates subjective bias and ensures fair municipal resource allocation across all wards.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data/demo-data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/insights.js"></script>
+</body>
+</html>

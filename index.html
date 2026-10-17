@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NagarSathi — AI-Powered Road Maintenance Platform | Overview</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body id="dashboardOverviewPage">
+  <div class="app-container">
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="brand-link">
+          <div class="brand-logo-icon">
+            <i data-lucide="activity"></i>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">NagarSathi <span class="brand-tag">AI</span></span>
+            <span class="brand-tagline">Together for Better Roads.</span>
+          </div>
+        </a>
+        <button id="sidebarCloseBtn" class="sidebar-close-btn" aria-label="Close Sidebar"><i data-lucide="x"></i></button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Navigation</div>
+        <a href="index.html" class="nav-item active">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Overview</span>
+        </a>
+        <a href="report.html" class="nav-item">
+          <i data-lucide="plus-circle"></i>
+          <span>Report Road Damage</span>
+        </a>
+        <a href="map.html" class="nav-item">
+          <i data-lucide="map"></i>
+          <span>Live Issue Map</span>
+        </a>
+        <a href="repairs.html" class="nav-item">
+          <i data-lucide="wrench"></i>
+          <span>Repair Management</span>
+        </a>
+
+        <div class="nav-section-title">Intelligence & Planning</div>
+        <a href="insights.html" class="nav-item">
+          <i data-lucide="sparkles"></i>
+          <span>AI Insights</span>
+        </a>
+        <a href="budget.html" class="nav-item">
+          <i data-lucide="calculator"></i>
+          <span>Budget Planner</span>
+        </a>
+
+        <div class="nav-section-title">Public & Governance</div>
+        <a href="transparency.html" class="nav-item">
+          <i data-lucide="shield-check"></i>
+          <span>Public Transparency</span>
+        </a>
+        <a href="about.html" class="nav-item">
+          <i data-lucide="info"></i>
+          <span>About NagarSathi</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-zone-card">
+          <div class="sidebar-zone-title">
+            <i data-lucide="building-2"></i> Ghaziabad Zone 3
+          </div>
+          <div class="sidebar-zone-sub">Municipal Corp. Telemetry Active</div>
+          <button id="resetDemoBtn" class="sidebar-reset-btn" title="Reset all demo records in localStorage to defaults">
+            <i data-lucide="refresh-cw"></i> Reset Demo Database
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+      <!-- Top Navbar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Toggle Menu">
+            <i data-lucide="menu"></i>
+          </button>
+          <div class="page-title-group">
+            <h1 class="page-heading">Municipal Infrastructure Overview</h1>
+            <p class="page-subheading">Live telemetry and repair analytics for Ghaziabad Municipal Corporation</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <span class="demo-chip" title="Simulated smart-city environment">
+            <span class="demo-chip-pulse"></span> Demo Environment
+          </span>
+
+          <a href="report.html" class="btn-report-quick">
+            <i data-lucide="plus"></i>
+            <span>Report Damage</span>
+          </a>
+
+          <!-- Notifications Dropdown -->
+          <div class="notification-wrapper">
+            <button id="notificationBtn" class="notification-btn" aria-label="Notifications">
+              <i data-lucide="bell"></i>
+              <span class="notification-badge">3</span>
+            </button>
+            <div id="notificationDropdown" class="notification-dropdown">
+              <div class="notification-header">
+                <h4>System Alerts</h4>
+                <span class="badge badge-low">3 New</span>
+              </div>
+              <ul class="notification-list">
+                <li class="notification-item">
+                  <div class="notif-icon-circle" style="background: var(--danger-bg); color: var(--danger);">
+                    <i data-lucide="alert-triangle"></i>
+                  </div>
+                  <div>
+                    <div class="notif-title">High Priority Pothole Logged</div>
+                    <div style="font-size: 0.72rem; color: var(--text-secondary);">Master Plan Rd, Sector 14 Raj Nagar</div>
+                    <div class="notif-time">12 mins ago</div>
+                  </div>
+                </li>
+                <li class="notification-item">
+                  <div class="notif-icon-circle" style="background: var(--success-bg); color: var(--success);">
+                    <i data-lucide="check-circle"></i>
+                  </div>
+                  <div>
+                    <div class="notif-title">Repair Verified & Closed</div>
+                    <div style="font-size: 0.72rem; color: var(--text-secondary);">Sector 11 Vasundhara Patch Completed</div>
+                    <div class="notif-time">2 hours ago</div>
+                  </div>
+                </li>
+                <li class="notification-item">
+                  <div class="notif-icon-circle" style="background: var(--warning-bg); color: var(--warning);">
+                    <i data-lucide="git-merge"></i>
+                  </div>
+                  <div>
+                    <div class="notif-title">Duplicate Candidate Detected</div>
+                    <div style="font-size: 0.72rem; color: var(--text-secondary);">2 reports merged at Kala Patthar Road</div>
+                    <div class="notif-time">4 hours ago</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- User Profile -->
+          <div class="user-profile" title="Municipal Engineer Session">
+            <div class="user-avatar">AV</div>
+            <div class="user-info">
+              <span class="user-name">Er. Alok Verma</span>
+              <span class="user-role">AE &bull; Road Works</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="page-content">
+        <!-- Demo Banner Disclaimer -->
+        <div class="demo-banner">
+          <div class="demo-banner-content">
+            <span class="demo-banner-badge">DEMO DATA NOTICE</span>
+            <span>
+              Showing simulated civic telemetry for Ghaziabad Municipal Corporation (GMC).
+              All figures, coordinates, and AI scores are illustrative demo data for prototype validation.
+            </span>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-shrink: 0;">
+            <a href="map.html" class="btn btn-outline btn-sm">
+              <i data-lucide="map"></i> Live Map
+            </a>
+            <a href="report.html" class="btn btn-primary btn-sm">
+              <i data-lucide="plus-circle"></i> Submit Report
+            </a>
+          </div>
+        </div>
+
+        <!-- 4 KPI Metrics Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Total Reports</span>
+              <div class="stat-icon-box primary">
+                <i data-lucide="file-text"></i>
+              </div>
+            </div>
+            <div class="stat-number" id="statTotalReports">12</div>
+            <div class="stat-card-footer">
+              <span class="trend-badge up"><i data-lucide="trending-up"></i> +14%</span>
+              <span>vs previous month</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">High-Priority Issues</span>
+              <div class="stat-icon-box danger">
+                <i data-lucide="alert-octagon"></i>
+              </div>
+            </div>
+            <div class="stat-number" id="statHighPriority" style="color: var(--danger);">5</div>
+            <div class="stat-card-footer">
+              <span class="trend-badge" style="background: var(--danger-bg); color: var(--danger);"><i data-lucide="alert-circle"></i> Requires SLA</span>
+              <span>Within 24 hours</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Pending Repairs</span>
+              <div class="stat-icon-box warning">
+                <i data-lucide="clock"></i>
+              </div>
+            </div>
+            <div class="stat-number" id="statPendingRepairs" style="color: var(--warning);">8</div>
+            <div class="stat-card-footer">
+              <span class="trend-badge down"><i data-lucide="trending-down"></i> -6%</span>
+              <span>Backlog decreasing</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Resolved Complaints</span>
+              <div class="stat-icon-box success">
+                <i data-lucide="check-circle-2"></i>
+              </div>
+            </div>
+            <div class="stat-number" id="statResolved" style="color: var(--success);">4</div>
+            <div class="stat-card-footer">
+              <span class="trend-badge up"><i data-lucide="award"></i> 91%</span>
+              <span>Quality inspection verified</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+          <!-- Chart 1: Monthly Complaint & Resolution Trends -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h3 class="card-title">Monthly Complaint Trends & Resolutions</h3>
+                <span class="card-subtitle">Monsoon peak vs Municipal resolution efficiency (Past 6 Months)</span>
+              </div>
+              <span class="badge badge-low"><i data-lucide="bar-chart-2"></i> Telemetry</span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="monthlyTrendsChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chart 2: Damage Categories Breakdown -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h3 class="card-title">Damage Categories</h3>
+                <span class="card-subtitle">Classification by defect type</span>
+              </div>
+              <span class="badge badge-under-review"><i data-lucide="pie-chart"></i> Distribution</span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="categoryDoughnutChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Secondary Charts and High Priority Stream -->
+        <div class="charts-grid" style="grid-template-columns: 1fr 1fr;">
+          <!-- Chart 3: Repair Status Distribution -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h3 class="card-title">Repair Workflow Status</h3>
+                <span class="card-subtitle">Progress distribution across active complaints</span>
+              </div>
+              <span class="badge badge-reported">Live Pipeline</span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container" style="height: 250px;">
+                <canvas id="statusBarChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- High Priority Urgent Hazards Panel -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h3 class="card-title" style="color: var(--danger); display: flex; align-items: center; gap: 0.4rem;">
+                  <i data-lucide="alert-triangle"></i> Urgent High-Priority Hazards
+                </h3>
+                <span class="card-subtitle">Immediate intervention required to prevent accidents</span>
+              </div>
+              <a href="repairs.html?priority=High" class="btn btn-outline btn-sm">View All</a>
+            </div>
+            <div class="card-body" style="padding: 0;">
+              <div id="highPriorityPanelList">
+                <!-- Dynamically populated by dashboard.js -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Complaints Table -->
+        <div class="card" style="margin-top: 1.75rem;">
+          <div class="card-header" style="flex-wrap: wrap; gap: 1rem;">
+            <div class="card-title-group">
+              <h3 class="card-title">Recent Road Infrastructure Complaints</h3>
+              <span class="card-subtitle">Live stream of citizen reports and field surveyor updates</span>
+            </div>
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+              <button class="btn btn-outline btn-sm table-tab-btn active" data-filter="all">All Complaints</button>
+              <button class="btn btn-outline btn-sm table-tab-btn" data-filter="high">High Priority</button>
+              <button class="btn btn-outline btn-sm table-tab-btn" data-filter="pending">Pending Only</button>
+              <a href="repairs.html" class="btn btn-primary btn-sm">Full Repair Console &rarr;</a>
+            </div>
+          </div>
+          <div class="card-body" style="padding: 0;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Report ID</th>
+                    <th>Location & Landmark</th>
+                    <th>Damage Type</th>
+                    <th>Priority</th>
+                    <th>Date Reported</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="recentComplaintsTbody">
+                  <!-- Dynamically populated by dashboard.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data/demo-data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

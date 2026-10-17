@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NagarSathi — Public Citizen Transparency Portal | Civic Accountability</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body id="transparencyPage">
+  <div class="app-container">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="brand-link">
+          <div class="brand-logo-icon">
+            <i data-lucide="activity"></i>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">NagarSathi <span class="brand-tag">AI</span></span>
+            <span class="brand-tagline">Together for Better Roads.</span>
+          </div>
+        </a>
+        <button id="sidebarCloseBtn" class="sidebar-close-btn" aria-label="Close Sidebar"><i data-lucide="x"></i></button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Navigation</div>
+        <a href="index.html" class="nav-item">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Overview</span>
+        </a>
+        <a href="report.html" class="nav-item">
+          <i data-lucide="plus-circle"></i>
+          <span>Report Road Damage</span>
+        </a>
+        <a href="map.html" class="nav-item">
+          <i data-lucide="map"></i>
+          <span>Live Issue Map</span>
+        </a>
+        <a href="repairs.html" class="nav-item">
+          <i data-lucide="wrench"></i>
+          <span>Repair Management</span>
+        </a>
+
+        <div class="nav-section-title">Intelligence & Planning</div>
+        <a href="insights.html" class="nav-item">
+          <i data-lucide="sparkles"></i>
+          <span>AI Insights</span>
+        </a>
+        <a href="budget.html" class="nav-item">
+          <i data-lucide="calculator"></i>
+          <span>Budget Planner</span>
+        </a>
+
+        <div class="nav-section-title">Public & Governance</div>
+        <a href="transparency.html" class="nav-item active">
+          <i data-lucide="shield-check"></i>
+          <span>Public Transparency</span>
+        </a>
+        <a href="about.html" class="nav-item">
+          <i data-lucide="info"></i>
+          <span>About NagarSathi</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-zone-card">
+          <div class="sidebar-zone-title">
+            <i data-lucide="globe"></i> Public Portal
+          </div>
+          <div class="sidebar-zone-sub">Open Municipal Data Initiative</div>
+          <button id="resetDemoBtn" class="sidebar-reset-btn">
+            <i data-lucide="refresh-cw"></i> Reset Demo Database
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+      <!-- Top Navbar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Toggle Menu">
+            <i data-lucide="menu"></i>
+          </button>
+          <div class="page-title-group">
+            <h1 class="page-heading">Citizen Public Transparency & Performance</h1>
+            <p class="page-subheading">Open governance dashboard monitoring municipal response times and resolution quality</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <span class="demo-chip">
+            <span class="demo-chip-pulse"></span> Open Data Telemetry
+          </span>
+
+          <a href="report.html" class="btn-report-quick">
+            <i data-lucide="plus"></i>
+            <span>Report Damage</span>
+          </a>
+
+          <div class="user-profile">
+            <div class="user-avatar" style="background: var(--accent);">PUB</div>
+            <div class="user-info">
+              <span class="user-name">Public Citizen</span>
+              <span class="user-role">Anonymous Access</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="page-content">
+        <!-- Privacy Guarantee Banner -->
+        <div class="demo-banner">
+          <div class="demo-banner-content">
+            <span class="demo-banner-badge" style="background: var(--success-bg); color: var(--success-text);">
+              PRIVACY COMPLIANT
+            </span>
+            <span>
+              All citizen data on this page is completely anonymized. No phone numbers, email addresses, or personally identifiable information are stored or broadcast.
+            </span>
+          </div>
+        </div>
+
+        <!-- 4 Citizen Accountability Metrics Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Total Reports Logged</span>
+              <div class="stat-icon-box primary">
+                <i data-lucide="inbox"></i>
+              </div>
+            </div>
+            <div class="stat-number" id="pubTotalReports">12</div>
+            <div class="stat-card-footer">
+              <span>Citizen engagement in Ghaziabad</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Complaints Resolved</span>
+              <div class="stat-icon-box success">
+                <i data-lucide="check-circle-2"></i>
+              </div>
+            </div>
+            <div class="stat-number" id="pubResolvedCount" style="color: var(--success);">4</div>
+            <div class="stat-card-footer">
+              <span class="trend-badge up"><i data-lucide="shield-check"></i> Field Verified</span>
+              <span>By PWD Engineers</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Active Work in Progress</span>
+              <div class="stat-icon-box warning">
+                <i data-lucide="hard-hat"></i>
+              </div>
+            </div>
+            <div class="stat-number" id="pubInProgressCount" style="color: var(--warning);">8</div>
+            <div class="stat-card-footer">
+              <span>Under review or contractor crew dispatched</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Average Resolution Time</span>
+              <div class="stat-icon-box primary" style="background: #e0f2fe; color: #0284c7;">
+                <i data-lucide="timer"></i>
+              </div>
+            </div>
+            <div class="stat-number" style="color: #0284c7;">3.8 Days</div>
+            <div class="stat-card-footer">
+              <span class="trend-badge down"><i data-lucide="arrow-down"></i> -1.2 Days</span>
+              <span>Improvement with AI routing</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Citizen Ticket Search Box -->
+        <div class="card" style="margin-bottom: 1.75rem; background: linear-gradient(135deg, #0f172a, #1e293b); color: #fff;">
+          <div class="card-body" style="padding: 1.75rem;">
+            <div style="max-width: 650px;">
+              <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.4rem;">
+                Track Your Road Damage Grievance
+              </h3>
+              <p style="font-size: 0.82rem; color: #cbd5e1; margin-bottom: 1.25rem;">
+                Enter your unique tracking ticket (e.g. <code>NS-2026-1042</code> or <code>NS-2026-1039</code>) to see live inspection status, contractor assignment, and completion imagery.
+              </p>
+
+              <div style="display: flex; gap: 0.75rem;">
+                <input type="text" id="citizenTrackInput" class="form-input" placeholder="Enter reference (e.g., NS-2026-1042)" style="background: #ffffff; color: var(--text-main); font-weight: 600; font-family: monospace;">
+                <button type="button" id="citizenTrackBtn" class="btn btn-primary" style="white-space: nowrap;">
+                  <i data-lucide="search"></i> Track Status
+                </button>
+              </div>
+
+              <!-- Live Track Result Box -->
+              <div id="trackResultBox" style="display: none; margin-top: 1.25rem; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: var(--radius); padding: 1rem;">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+          <!-- Monthly Resolution Rate -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h3 class="card-title">Monthly Public Resolution Trends</h3>
+                <span class="card-subtitle">Reported issues vs resolved road patches</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="transparencyMonthlyChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ward Performance Leaderboard -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h3 class="card-title">Ward Efficiency Leaderboard</h3>
+                <span class="card-subtitle">Ghaziabad municipal wards ranked by resolution speed</span>
+              </div>
+            </div>
+            <div class="card-body" style="padding: 0;">
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Ward Zone</th>
+                      <th>AE In-Charge</th>
+                      <th>Pending</th>
+                      <th>Resolved</th>
+                    </tr>
+                  </thead>
+                  <tbody id="wardLeaderboardTbody">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Anonymized Public Reports Table -->
+        <div class="card" style="margin-top: 1.75rem;">
+          <div class="card-header" style="flex-wrap: wrap; gap: 1rem;">
+            <div class="card-title-group">
+              <h3 class="card-title">Public Road Damage Registry</h3>
+              <span class="card-subtitle">Anonymized log of all verified municipal road grievances</span>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <select id="pubWardFilter" class="form-select" style="width: auto; font-size: 0.8rem;">
+                <option value="All">All Municipal Wards</option>
+                <option value="Raj Nagar">Ward 14 (Raj Nagar)</option>
+                <option value="Kavi Nagar">Ward 22 (Kavi Nagar)</option>
+                <option value="Indirapuram">Ward 08 (Indirapuram)</option>
+                <option value="Vasundhara">Ward 11 (Vasundhara)</option>
+                <option value="Crossings">Ward 34 (Crossings)</option>
+                <option value="Vaishali">Ward 04 (Vaishali)</option>
+              </select>
+
+              <select id="pubStatusFilter" class="form-select" style="width: auto; font-size: 0.8rem;">
+                <option value="All">All Statuses</option>
+                <option value="Reported">Reported</option>
+                <option value="Under Review">Under Review</option>
+                <option value="Repair in Progress">In Progress</option>
+                <option value="Resolved">Resolved</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="card-body" style="padding: 0;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Report Ref</th>
+                    <th>Location & Ward</th>
+                    <th>Defect Type</th>
+                    <th>Logged Date</th>
+                    <th>Work Status</th>
+                    <th>Verification</th>
+                  </tr>
+                </thead>
+                <tbody id="pubReportsTableBody">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data/demo-data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      if (!window.NagarSathiAPI) return;
+
+      const analytics = await window.NagarSathiAPI.getAnalytics();
+      const allReports = await window.NagarSathiAPI.getReports();
+
+      // Top stats
+      document.getElementById("pubTotalReports").innerText = analytics.totalReports;
+      document.getElementById("pubResolvedCount").innerText = analytics.resolvedComplaints;
+      document.getElementById("pubInProgressCount").innerText = analytics.pendingRepairs;
+
+      // Render monthly chart
+      renderTransparencyChart(analytics.monthlyTrends);
+
+      // Render Ward Leaderboard
+      renderWardLeaderboard();
+
+      // Render Public Table
+      renderPublicTable(allReports);
+
+      // Setup filters
+      document.getElementById("pubWardFilter").addEventListener("change", applyPublicFilters);
+      document.getElementById("pubStatusFilter").addEventListener("change", applyPublicFilters);
+
+      // Citizen Tracker
+      document.getElementById("citizenTrackBtn").addEventListener("click", handleTrackTicket);
+      document.getElementById("citizenTrackInput").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") handleTrackTicket();
+      });
+    });
+
+    function renderTransparencyChart(trends) {
+      const ctx = document.getElementById("transparencyMonthlyChart");
+      if (!ctx || typeof Chart === "undefined" || !trends) return;
+
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: trends.months,
+          datasets: [
+            {
+              label: "Reported Complaints",
+              data: trends.reported,
+              backgroundColor: "rgba(239, 68, 68, 0.7)",
+              borderRadius: 4
+            },
+            {
+              label: "Resolved Complaints",
+              data: trends.resolved,
+              backgroundColor: "rgba(13, 148, 136, 0.8)",
+              borderRadius: 4
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: "top", labels: { font: { family: "Inter", size: 11 } } }
+          },
+          scales: {
+            x: { grid: { display: false } },
+            y: { grid: { color: "#f1f5f9" }, beginAtZero: true }
+          }
+        }
+      });
+    }
+
+    function renderWardLeaderboard() {
+      const tbody = document.getElementById("wardLeaderboardTbody");
+      if (!tbody || !window.NagarSathiDemo) return;
+
+      const wards = window.NagarSathiDemo.DEMO_WARDS || [];
+      tbody.innerHTML = wards.map(w => `
+        <tr>
+          <td><strong>${w.name}</strong></td>
+          <td style="font-size: 0.78rem; color: var(--text-secondary);">${w.inspector}</td>
+          <td><span class="badge badge-under-review">${w.activeIssues} active</span></td>
+          <td><span class="badge badge-resolved">${w.resolvedMonth} resolved</span></td>
+        </tr>
+      `).join("");
+    }
+
+    async function applyPublicFilters() {
+      const wardVal = document.getElementById("pubWardFilter").value;
+      const statusVal = document.getElementById("pubStatusFilter").value;
+      const allReports = await window.NagarSathiAPI.getReports();
+
+      const filtered = allReports.filter(r => {
+        if (wardVal !== "All" && (!r.ward || !r.ward.includes(wardVal))) return false;
+        if (statusVal !== "All" && r.status !== statusVal) return false;
+        return true;
+      });
+
+      renderPublicTable(filtered);
+    }
+
+    function renderPublicTable(reports) {
+      const tbody = document.getElementById("pubReportsTableBody");
+      if (!tbody) return;
+
+      if (reports.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-muted);">No records match the filter.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = reports.map(r => {
+        let statusClass = "badge-reported";
+        if (r.status === "Under Review") statusClass = "badge-under-review";
+        if (r.status === "Repair in Progress") statusClass = "badge-in-progress";
+        if (r.status === "Resolved") statusClass = "badge-resolved";
+
+        const verifBadge = r.verifiedByInspector ?
+          `<span style="color: var(--success); font-weight: 600; font-size: 0.75rem;"><i data-lucide="shield-check" style="width:13px; height:13px;"></i> Verified</span>` :
+          `<span style="color: var(--text-muted); font-size: 0.75rem;">In Review</span>`;
+
+        return `
+          <tr>
+            <td><span class="report-id-pill">${r.id}</span></td>
+            <td>
+              <div style="font-weight: 600; font-size: 0.82rem;">${escapeHtml(r.location)}</div>
+              <div style="font-size: 0.72rem; color: var(--accent);">${escapeHtml(r.ward || "Zone 3")}</div>
+            </td>
+            <td><strong>${escapeHtml(r.category)}</strong></td>
+            <td style="font-size: 0.78rem; color: var(--text-muted);">${r.date}</td>
+            <td><span class="badge ${statusClass}">${r.status}</span></td>
+            <td>${verifBadge}</td>
+          </tr>
+        `;
+      }).join("");
+
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    async function handleTrackTicket() {
+      const input = document.getElementById("citizenTrackInput").value.trim();
+      const resultBox = document.getElementById("trackResultBox");
+      if (!input) {
+        alert("Please enter a report ticket reference ID.");
+        return;
+      }
+
+      let report = await window.NagarSathiAPI.getReportById(input);
+      if (!report) {
+        const allReports = await window.NagarSathiAPI.getReports();
+        const cleanInput = input.toLowerCase();
+        report = allReports.find(r => 
+          r.id.toLowerCase() === cleanInput || 
+          r.id.toLowerCase().endsWith(cleanInput) || 
+          r.id.toLowerCase().includes(cleanInput)
+        );
+      }
+
+      if (!report) {
+        resultBox.style.display = "block";
+        resultBox.innerHTML = `
+          <div style="color: #fca5a5; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i data-lucide="alert-circle"></i> No report found matching reference <strong>${escapeHtml(input)}</strong>. Please verify the ID.
+          </div>
+        `;
+        if (window.lucide) window.lucide.createIcons();
+        return;
+      }
+
+      resultBox.style.display = "block";
+      resultBox.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+          <span style="font-family: monospace; font-size: 1.1rem; font-weight: 800; color: #5eead4;">${report.id}</span>
+          <span class="badge ${report.status === 'Resolved' ? 'badge-resolved' : 'badge-under-review'}">${report.status}</span>
+        </div>
+        <div style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.35rem;">${escapeHtml(report.title)}</div>
+        <div style="font-size: 0.78rem; color: #cbd5e1; margin-bottom: 0.5rem;">Location: ${escapeHtml(report.location)}</div>
+        <div style="display: flex; gap: 1.5rem; font-size: 0.75rem; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.5rem;">
+          <span>Category: <strong style="color: #fff;">${report.category}</strong></span>
+          <span>Logged: <strong style="color: #fff;">${report.date}</strong></span>
+          <span>Inspector: <strong style="color: #fff;">${report.inspectorName || 'Pending Assignment'}</strong></span>
+        </div>
+      `;
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.replace(/[&<>"']/g, m => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[m]);
+    }
+  </script>
+</body>
+</html>
