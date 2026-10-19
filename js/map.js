@@ -43,7 +43,12 @@ async function initLiveMap() {
   if (categoryFilter) categoryFilter.addEventListener("change", applyFiltersAndRenderMarkers);
   if (priorityFilter) priorityFilter.addEventListener("change", applyFiltersAndRenderMarkers);
   if (statusFilter) statusFilter.addEventListener("change", applyFiltersAndRenderMarkers);
-  if (searchFilter) searchFilter.addEventListener("input", applyFiltersAndRenderMarkers);
+  if (searchFilter) searchFilter.addEventListener("input", debounce(applyFiltersAndRenderMarkers, 150));
+
+  // Invalidate map size on window resize smoothly
+  window.addEventListener("resize", debounce(() => {
+    if (mapInstance) mapInstance.invalidateSize();
+  }, 200));
 
   // Check URL query parameters for ?focus=NS-2026-XXXX
   const urlParams = new URLSearchParams(window.location.search);
@@ -271,3 +276,12 @@ function escapeHtml(str) {
     "'": "&#39;"
   })[m]);
 }
+
+function debounce(fn, delay = 150) {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+

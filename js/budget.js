@@ -34,13 +34,15 @@ async function initBudgetPlanner() {
   // Live budget amount input listener
   const budgetInput = document.getElementById("budgetAmountInput");
   if (budgetInput) {
-    budgetInput.addEventListener("input", () => {
+    const handleBudgetInput = debounce(() => {
       const currentVal = budgetInput.value;
       document.querySelectorAll(".budget-preset-btn").forEach(b => {
         b.classList.toggle("active", b.dataset.amount === currentVal);
       });
       runBudgetOptimization();
-    });
+    }, 150);
+
+    budgetInput.addEventListener("input", handleBudgetInput);
   }
 
   // Generate Plan button
@@ -267,3 +269,12 @@ function escapeHtml(str) {
     "'": "&#39;"
   })[m]);
 }
+
+function debounce(fn, delay = 150) {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+

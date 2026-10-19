@@ -78,7 +78,7 @@ function initAiClassifierDemo() {
 
       if (demoImage) demoImage.src = data.img;
       if (resultCategory) resultCategory.innerText = data.type;
-      if (resultConf) resultConf.innerText = data.conf;
+      if (resultConf) resultConf.innerText = `Simulated ~${Math.round(data.confNum)}%`;
       if (resultConfBar) resultConfBar.style.width = `${data.confNum}%`;
       if (resultGrade) resultGrade.innerText = data.grade;
       if (resultArea) resultArea.innerText = data.area;

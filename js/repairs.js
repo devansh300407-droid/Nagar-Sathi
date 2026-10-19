@@ -22,7 +22,7 @@ async function initRepairManagement() {
   const priorityFilter = document.getElementById("repairPriorityFilter");
   const wardFilter = document.getElementById("repairWardFilter");
 
-  if (searchInput) searchInput.addEventListener("input", filterRepairsTable);
+  if (searchInput) searchInput.addEventListener("input", debounce(filterRepairsTable, 150));
   if (statusFilter) statusFilter.addEventListener("change", filterRepairsTable);
   if (priorityFilter) priorityFilter.addEventListener("change", filterRepairsTable);
   if (wardFilter) wardFilter.addEventListener("change", filterRepairsTable);
@@ -252,6 +252,9 @@ window.closeInspectionModal = function () {
 async function handleSaveRepairStatus() {
   if (!activeInspectingReport || !window.NagarSathiAPI) return;
 
+  const saveBtn = document.getElementById("saveRepairStatusBtn");
+  const originalSaveHtml = saveBtn ? saveBtn.innerHTML : "Save & Update Workflow";
+
   const newStatus = document.getElementById("modalStatusSelect").value;
   const contractor = document.getElementById("modalContractorSelect").value;
   const inspectorName = document.getElementById("modalInspectorInput").value.trim();
@@ -272,12 +275,28 @@ async function handleSaveRepairStatus() {
     afterImageUrl
   };
 
-  const updated = await window.NagarSathiAPI.updateReportStatus(activeInspectingReport.id, newStatus, updatePayload);
+  if (saveBtn) {
+    saveBtn.disabled = true;
+    saveBtn.innerHTML = '<i data-lucide="loader" class="spin"></i> Updating...';
+    if (window.lucide) window.lucide.createIcons();
+  }
 
-  if (updated) {
-    window.showToast(`Report ${updated.id} status updated to ${newStatus}`, "success");
-    closeInspectionModal();
-    await loadAndRenderRepairs();
+  try {
+    const updated = await window.NagarSathiAPI.updateReportStatus(activeInspectingReport.id, newStatus, updatePayload);
+    if (updated) {
+      window.showToast(`Report ${updated.id} status updated to ${newStatus}`, "success");
+      closeInspectionModal();
+      await loadAndRenderRepairs();
+    }
+  } catch (err) {
+    console.error("Error updating repair status:", err);
+    window.showToast("Failed to update status. Please try again.", "error");
+  } finally {
+    if (saveBtn) {
+      saveBtn.disabled = false;
+      saveBtn.innerHTML = originalSaveHtml;
+      if (window.lucide) window.lucide.createIcons();
+    }
   }
 }
 
@@ -310,3 +329,12 @@ function escapeHtml(str) {
     "'": "&#39;"
   })[m]);
 }
+
+function debounce(fn, delay = 150) {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+

@@ -315,6 +315,10 @@ function initMiniPickerMap() {
 
   updateCoordinatesInput(defaultLat, defaultLng);
 
+  window.addEventListener("resize", () => {
+    if (pickerMap) pickerMap.invalidateSize();
+  });
+
   setTimeout(() => {
     if (pickerMap) pickerMap.invalidateSize();
   }, 250);
